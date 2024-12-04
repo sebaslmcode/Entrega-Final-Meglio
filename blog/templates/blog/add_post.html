@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Agregar Post{% endblock %}
+
+{% block content %}
+    <h2>Agregar Nuevo Post</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ post_form.as_p }}
+        <button type="submit">Guardar</button>
+    </form>
+    <a href="{% url 'index' %}">Volver a la lista de posts</a>
+
+    {% if post_form.errors %}
+        <div class="error">
+            <h3>Errores en el formulario:</h3>
+            <ul>
+                {% for field in post_form %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }}: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}
