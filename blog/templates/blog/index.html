@@ -2,6 +2,8 @@
 
 {% block title %}Lista de Posts{% endblock %}
 
+{% load static %}
+
 {% block content %}
     <h2>Lista de Posts</h2>
     <form method="GET" action="{% url 'search_posts' %}">

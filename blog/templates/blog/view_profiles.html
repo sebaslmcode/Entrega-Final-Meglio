@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Ver Perfiles{% endblock %}
+
+{% block content %}
+    <h2>Perfiles de Usuarios</h2>
+    <ul>
+        {% for profile in profiles %}
+            <li>
+                {{ profile.user.username }} - {{ profile.bio }}
+            </li>
+        {% empty %}
+            <li>No hay perfiles disponibles.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'profile' %}">Volver a mi perfil</a>
+{% endblock %}

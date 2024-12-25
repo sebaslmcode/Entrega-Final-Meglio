@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Página de Inicio{% endblock %}
+
+{% block content %}
+    <h2>Home - Pagina de inicio</h2>
+    <p>Bienvenido a este simple y humilde blog, espero hayes diversion en la simplificacion.</p>
+    <a href="{% url 'posts' %}">Ver Posts</a>
+    <a href="{% url 'register' %}">Registrarse</a>
+    <a href="{% url 'login' %}">Iniciar Sesión</a>
+{% endblock %}

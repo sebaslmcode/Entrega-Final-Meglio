@@ -1,89 +1,144 @@
 /* Estilos generales */
 body {
-    font-family: Arial, sans-serif; /* Fuente general */
-    line-height: 1.6; /* Espaciado entre líneas */
-    margin: 0; /* Sin margen */
-    padding: 0; /* Sin padding */
-    background-color: #f4f4f4; /* Color de fondo */
+    font-family: 'Arial', sans-serif; /* Fuente moderna */
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a; /* Fondo gris oscuro */
+    color: #e0e0e0; /* Texto gris claro */
+    overflow: hidden; /* Evitar scroll */
+}
+
+/* Efecto de lluvia de caracteres */
+@keyframes rain {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(100vh); }
+}
+
+.rain {
+    position: absolute;
+    top: -100%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.rain span {
+    position: absolute;
+    color: #00bfff; /* Azul brillante */
+    white-space: nowrap;
+    font-size: 20px;
+    animation: rain 5s linear infinite;
 }
 
 /* Encabezado */
 header {
-    background: #35424a; /* Color de fondo del encabezado */
-    color: #ffffff; /* Color del texto */
-    padding: 20px 0; /* Espaciado interno */
-    text-align: center; /* Centrar texto */
+    background: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente */
+    color: #00bfff; /* Texto azul brillante */
+    padding: 20px 0;
+    text-align: center;
 }
 
 /* Navegación */
 nav ul {
-    list-style: none; /* Sin viñetas */
-    padding: 0; /* Sin padding */
+    list-style: none;
+    padding: 0;
 }
 
 nav ul li {
-    display: inline; /* Mostrar elementos en línea */
-    margin: 0 15px; /* Espaciado entre elementos */
+    display: inline;
+    margin: 0 15px;
 }
 
 nav ul li a {
-    color: #ffffff; /* Color de los enlaces */
-    text-decoration: none; /* Sin subrayado */
+    color: #00bfff; /* Texto azul brillante */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ffffff; /* Cambia a blanco al pasar el mouse */
 }
 
 /* Estilo del contenido principal */
 main {
-    padding: 20px; /* Espaciado interno */
-    max-width: 800px; /* Ancho máximo */
-    margin: auto; /* Centrar el contenido */
-    background: #ffffff; /* Color de fondo del contenido */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
-}
-
-/* Estilos para los encabezados de los posts */
-h1, h2, h3 {
-    color: #35424a; /* Color de los encabezados */
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    background: rgba(30, 30, 30, 0.9); /* Fondo semi-transparente */
+    box-shadow: 0 0 10px rgba(0, 191, 255, 0.5); /* Sombra azul */
 }
 
 /* Estilo del pie de página */
 footer {
-    text-align: center; /* Centrar texto */
-    padding: 10px 0; /* Espaciado interno */
-    background: #35424a; /* Color de fondo del pie de página */
-    color: #ffffff; /* Color del texto */
-    position: relative; /* Posición relativa */
-    bottom: 0; /* Alinear al fondo */
-    width: 100%; /* Ancho completo */
+    text-align: center;
+    padding: 10px 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: #00bfff; /* Texto azul brillante */
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
 
 /* Estilos para formularios */
 form {
-    margin: 20px 0; /* Margen superior e inferior */
+    margin: 20px 0;
 }
 
 form input[type="text"], form textarea {
-    width: 100%; /* Ancho completo */
-    padding: 10px; /* Espaciado interno */
-    margin: 10px 0; /* Margen superior e inferior */
-    border: 1px solid #ccc; /* Borde */
-    border-radius: 4px; /* Bordes redondeados */
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #00bfff; /* Borde azul */
+    border-radius: 4px;
+    background-color: #2e2e2e; /* Fondo oscuro */
+    color: #e0e0e0; /* Texto gris claro */
 }
 
 form button {
-    background-color: #35424a; /* Color de fondo del botón */
-    color: white; /* Color del texto del botón */
-    padding: 10px 15px; /* Espaciado interno */
-    border: none; /* Sin borde */
-    border-radius: 4px; /* Bordes redondeados */
-    cursor: pointer; /* Cambiar cursor al pasar el mouse */
+    background-color: #00bfff; /* Botón azul */
+    color: black; /* Texto negro */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 form button:hover {
-    background-color: #45a049; /* Color de fondo al pasar el mouse */
+    background-color: #ffffff; /* Cambia a blanco al pasar el mouse */
 }
 
 /* Estilos para mensajes de error */
 .error {
-    color: red; /* Color rojo para errores */
-    margin: 10px 0; /* Margen superior e inferior */
+    color: red;
+    margin: 10px 0;
+}
+
+/* Estilos para el botón de audio */
+#audio-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    background-color: #007acc; /* Color inicial azul */
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+#audio-button.active {
+    background-color: #005f99; /* Color cuando está activo */
+}
+
+#audio-button.inactive {
+    background-color: #007acc; /* Color cuando está inactivo */
 }

@@ -1,0 +1,12 @@
+<!-- blog/templates/blog/profile.html -->
+
+{% extends 'blog/base.html' %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block content %}
+    <h2>Perfil de {{ request.user.username }}</h2>
+    <p>Email: {{ request.user.email }}</p>
+    <p>Bio: {{ request.user.profile.bio }}</p>  <!-- Asegúrate de que el modelo Profile esté relacionado -->
+    <a href="{% url 'edit_profile' %}">Editar Perfil</a>
+{% endblock %}

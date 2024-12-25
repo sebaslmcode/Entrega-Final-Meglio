@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Registro{% endblock %}
+
+{% block content %}
+    <h2>Registro</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Registrar</button>
+    </form>
+
+    {% if form.errors %}
+        <div class="error">
+            <h3>Errores en el formulario:</h3>
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }}: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <a href="{% url 'login' %}">Ya tengo una cuenta. Iniciar sesión</a>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Lista de Posts{% endblock %}
+
+{% block content %}
+    <h2>Lista de Posts</h2>
+    <form method="GET" action="{% url 'posts' %}">
+        <input type="text" name="q" placeholder="Buscar posts...">
+        <button type="submit">Buscar</button>
+    </form>
+    <a href="{% url 'add_post' %}">Agregar Nuevo Post</a>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <strong>{{ post.title }}</strong> - {{ post.author.username }} ({{ post.created_at }})
+                <a href="{% url 'edit_post' post.id %}">Editar</a>
+                <a href="{% url 'delete_post' post.id %}">Eliminar</a>
+            </li>
+        {% empty %}
+            <li>No hay posts disponibles.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

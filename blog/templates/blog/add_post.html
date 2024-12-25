@@ -1,6 +1,6 @@
 {% extends 'blog/base.html' %}
 
-{% block title %}Agregar Post{% endblock %}
+{% block title %}Agregar Nuevo Post{% endblock %}
 
 {% block content %}
     <h2>Agregar Nuevo Post</h2>
@@ -9,7 +9,7 @@
         {{ post_form.as_p }}
         <button type="submit">Guardar</button>
     </form>
-    <a href="{% url 'index' %}">Volver a la lista de posts</a>
+    <a href="{% url 'posts' %}">Volver a la lista de posts</a>
 
     {% if post_form.errors %}
         <div class="error">

@@ -4,25 +4,190 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Mi Blog{% endblock %}</title>
-    {% load static %}  <!-- Cargar las etiquetas estáticas -->
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">  <!-- Asegúrate de que la ruta sea correcta -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon"> <!-- Agregar favicon -->
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Arial', sans-serif; /* Fuente sans-serif para mejor legibilidad */
+            line-height: 1.8; /* Aumentar el espaciado entre líneas */
+            margin: 0;
+            padding: 0;
+            background-color: #1e1e1e; /* Fondo gris oscuro */
+            color: #e0e0e0; /* Texto gris claro */
+            overflow: hidden; /* Evitar scroll */
+        }
+
+        /* Encabezado */
+        header {
+            background: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente */
+            color: #00bfff; /* Texto azul brillante */
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        /* Navegación */
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #00bfff; /* Texto azul brillante */
+            text-decoration: none; /* Sin subrayado */
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ffffff; /* Cambia a blanco al pasar el mouse */
+        }
+
+        /* Estilo del contenido principal */
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+            background: rgba(30, 30, 30, 0.9); /* Fondo semi-transparente */
+            box-shadow: 0 0 10px rgba(0, 191, 255, 0.5); /* Sombra azul */
+        }
+
+        /* Estilo del pie de página */
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: #00bfff; /* Texto azul brillante */
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* Estilos para formularios */
+        form {
+            margin: 20px 0;
+        }
+
+        form input[type="text"], form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #00bfff; /* Borde azul */
+            border-radius: 4px;
+            background-color: #2e2e2e; /* Fondo oscuro para formularios */
+            color: #e0e0e0; /* Texto gris claro */
+        }
+
+        form button {
+            background-color: #00bfff; /* Botón azul */
+            color: black; /* Texto negro */
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #ffffff; /* Cambia a blanco al pasar el mouse */
+        }
+
+        /* Estilos para mensajes de error */
+        .error {
+            color: red;
+            margin: 10px 0;
+        }
+
+        /* Estilos para el botón de audio */
+        #audio-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            background-color: #007acc; /* Color inicial azul */
+            transition: background-color 0.3s; /* Transición suave */
+        }
+
+#audio-button.inactive {
+    background-color: #007acc; /* Color cuando está inactivo */
+}
+</style>
 </head>
 <body>
-    <header>
-        <h1>Mi Blog</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'index' %}">Inicio</a></li>
-                <li><a href="{% url 'add_post' %}">Agregar Post</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        {% block content %}
-        {% endblock %}
-    </main>
-    <footer>
-        <p>&copy; 2023 Mi Blog</p>
-    </footer>
+<header>
+<h1>Mi Blog</h1>
+<nav>
+    <ul>
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'posts' %}">Posts</a></li>
+        <li><a href="{% url 'about' %}">Acerca de Mí</a></li>
+        <li><a href="{% url 'register' %}">Registro</a></li>
+        <li><a href="{% url 'login' %}">Iniciar Sesión</a></li>
+        <li><a href="{% url 'logout' %}">Cerrar Sesión</a></li>
+        <li><a href="{% url 'profile' %}">Mi Perfil</a></li>
+    </ul>
+</nav>
+</header>
+<main>
+{% block content %}
+{% endblock %}
+</main>
+<footer>
+<p>&copy; 2023 Mi Blog. Todos los derechos reservados.</p>
+</footer>
+
+<!-- Botón de audio -->
+<button id="audio-button" onclick="toggleAudio()" class="inactive">
+🎵
+</button>
+<audio id="background-music" loop>
+<source src="{% static 'music/videoplayback.mp3' %}" type="audio/mpeg">
+Tu navegador no soporta el elemento de audio.
+</audio>
+
+<script>
+let isPlaying = localStorage.getItem('audioPlaying') === 'true';
+const audio = document.getElementById('background-music');
+const button = document.getElementById('audio-button');
+
+// Establecer el estado inicial del botón
+if (isPlaying) {
+    audio.play().catch(function(error) {
+        console.error("Error al intentar reproducir el audio:", error);
+    });
+    button.classList.remove('inactive');
+    button.classList.add('active');
+}
+
+function toggleAudio() {
+    if (isPlaying) {
+        audio.pause();
+        button.classList.remove('active');
+        button.classList.add('inactive');
+        isPlaying = false;
+    } else {
+        audio.play().catch(function(error) {
+            console.error("Error al intentar reproducir el audio:", error);
+        });
+        button.classList.remove('inactive');
+        button.classList.add('active');
+        isPlaying = true;
+    }
+    localStorage.setItem('audioPlaying', isPlaying);
+}
+</script>
 </body>
 </html>
